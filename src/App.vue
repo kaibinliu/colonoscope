@@ -1,9 +1,17 @@
 <template>
   <div id="bg">
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <router-view></router-view>
+
   </div>
+  <div style="position: fixed;width: 100%;height: 100%">
+    <div class="navbar">
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </div>
+    <div id="content">
+      <router-view></router-view>
+    </div>
+  </div>
+
 </template>
 
 
@@ -64,11 +72,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 #bg {
@@ -79,5 +83,38 @@ export default {
   height: 100%;
   background-color: white;
 }
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1; /* 保证顶栏在背景上层 */
+  text-decoration: none;
+}
 
+.navbar a {
+  color: #333;
+  font-size: 32px;
+  margin: 0 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+router-link {
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+}
+
+#content{
+  /*position: fixed;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
 </style>
