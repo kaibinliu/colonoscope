@@ -3,10 +3,30 @@
     <form action="/target" class="dropzone" id="my-form"></form>
     <button type="button" id="submit-all">Upload</button>
     <button type="button" @click="getProcessResult">展示结果</button>
-    <div>
-      <img :src="processResult.maskImage" alt="Image 1">
-      <img :src="processResult.bboxesImage" alt="Image 2">
-    </div>
+<!--    <div>-->
+<!--      <img :src="processResult.maskImage" alt="Image 1">-->
+<!--      <img :src="processResult.bboxesImage" alt="Image 2">-->
+<!--    </div>-->
+  </div>
+  <div>
+    <el-card :body-style="{ padding: '0px' }" class="card">
+      <img :src="processResult.maskImage" class="image">
+      <div style="padding: 14px;">
+        <span>二进制掩模图像</span>
+        <div class="bottom clearfix">
+          <time class="time">{{ currentDate }}</time>
+        </div>
+      </div>
+    </el-card>
+    <el-card :body-style="{ padding: '0px' }" class="card">
+      <img :src="processResult.bboxesImage" class="image">
+      <div style="padding: 14px;">
+        <span>矩形边界框图像</span>
+        <div class="bottom clearfix">
+          <time class="time">{{ currentDate }}</time>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -20,9 +40,10 @@ export default {
     return{
       imageName:'',
       processResult: {
-        maskImage:'/images/maskImage/等待.gif',
-        bboxesImage:'/images/bboxesImage/等待.gif'
-      }
+        maskImage:'/images/maskImage/加载中.jpg',
+        bboxesImage:'/images/bboxesImage/加载中.jpg'
+      },
+      currentDate: new Date(),
     }
   },
   mounted() {
@@ -99,5 +120,36 @@ export default {
   cursor:pointer;
   border:none
 }
+.image_show{
+  width: 100%;
+  float: contour;
+}
+.time {
+  font-size: 13px;
+  color: #999;
+}
 
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+.card{
+  width: 25%;
+  display: inline-block;
+  margin: 0 10px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
 </style>
