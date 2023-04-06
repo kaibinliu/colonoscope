@@ -61,6 +61,9 @@ export default {
       dictFileTooBig: '文件大小不能超过2MB', // 文件大小超出限制提示消息
       dictInvalidFileType: '只能上传图片', // 文件类型不符合要求提示消息
       autoProcessQueue: false, // 禁用自动上传
+      timeout: 30000, // 30秒超时
+      resizeWidth: 256, // 重塑图片宽度
+      resizeHeight: 256, // 重塑图片高度
       success: function(file, response) {
         self.imageName = response.fileName;
         console.log('这个是存储时的文件名：'+self.imageName); // 在控制台输出后端返回的数据
