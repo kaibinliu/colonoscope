@@ -4,8 +4,12 @@
   </div>
   <div style="position: fixed;width: 100%;height: 100%">
     <div class="navbar">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/" style="font-size: 32px;float: left;text-transform: none;">ColonoScope</router-link>
+      <div style="position: absolute;text-align: center;width: 100%">
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
+      </div>
+
     </div>
     <div id="content">
       <router-view></router-view>
@@ -88,15 +92,16 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 64px;
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 1; /* 保证顶栏在背景上层 */
   text-decoration: none;
+
 }
 
 .navbar a {
   color: #333;
-  font-size: 32px;
+  font-size: 20px;
   margin: 0 10px;
   text-decoration: none;
   text-transform: uppercase;
