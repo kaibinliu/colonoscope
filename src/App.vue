@@ -5,10 +5,18 @@
   <div style="position: fixed;width: 100%;height: 100%">
     <div class="navbar">
       <router-link to="/" style="font-size: 32px;float: left;text-transform: none;">ColonoScope</router-link>
-      <div style="position: absolute;text-align: center;width: 100%">
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
+      <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+        <router-link to="/">首页</router-link>
+        <router-link to="/History">图片处理历史</router-link>
+        <router-link to="/About">网站相关</router-link>
+        <router-link to="/Register">注册</router-link>
+        <div class="user-profile">
+          <router-link to="/User_space">个人中心</router-link>
+          <el-button v-if="store.state.currentUser!=null" @click="store.state.currentUser=null;this.$router.push('/Login')">退出登录</el-button>
+        </div>
+
       </div>
+
 
     </div>
     <div id="content">
@@ -21,12 +29,23 @@
 
 <script>
 
+import store from "@/store";
+import router from "@/router";
+
 export default {
   name: 'App',
+  computed: {
+    store() {
+      return store
+    }
+  },
   mounted() {
     this.background()
   },
   methods: {
+    router() {
+      return router
+    },
     background(){
       // 此函数用于生成动态背景
       const bg = document.querySelector("#bg");
@@ -94,9 +113,15 @@ export default {
   width: 100%;
   height: 64px;
   background-color: rgba(255, 255, 255, 0.8);
-  z-index: 1; /* 保证顶栏在背景上层 */
+  z-index: 2; /* 保证顶栏在背景上层 */
   text-decoration: none;
 
+}
+.user-profile {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .navbar a {

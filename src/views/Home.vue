@@ -34,6 +34,7 @@
 import axios from 'axios'
 import Dropzone from "dropzone";
 import 'dropzone/dist/dropzone.css'
+import store from '@/store'
 export default {
   el: 'Home',
   data(){
@@ -87,6 +88,7 @@ export default {
       const formData = new FormData();
       console.log('imageName：'+this.imageName)
       formData.append("fileName", this.imageName);
+      formData.append("uid", store.state.currentUser.uid)
       console.log('这是formData')
       console.log(formData)
       axios.post('http://localhost:8085/upload/process', formData, {
