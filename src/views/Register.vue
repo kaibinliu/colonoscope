@@ -119,8 +119,8 @@
 <script>
 import jsonData from '@/assets/js/china_address.json'
 import axios from "axios";
-import store from '@/store'
 import { ElMessage } from 'element-plus'
+import router from "@/router";
 export default {
   name: "Register",
   data() {
@@ -237,13 +237,12 @@ export default {
           'Content-Type': 'application/json'
         }
       }).then(response => {
-        const user = response.data
-        // 存储用户信息到 sessionStorage
-        window.sessionStorage.setItem('user', JSON.stringify(user))
-        // 提交 mutation 更新 state 中的 currentUser
-        store.commit('initCurrentUser', user)
-        ElMessage('注册成功！')
+        if(response.data){
+          router.push('/Login')
+          ElMessage('注册成功！')
+        }
       }).catch(error => {
+        ElMessage('注册失败！')
         console.error(error);
       });
     },

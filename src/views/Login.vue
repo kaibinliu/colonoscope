@@ -41,6 +41,8 @@ export default {
           'Content-Type': 'application/json'
         }
       }).then(response => {
+        store.state.currentUser = null
+
         const user = response.data
         // 存储用户信息到 sessionStorage
         window.sessionStorage.setItem('user', JSON.stringify(user))
@@ -51,6 +53,7 @@ export default {
         // console.log('以下是user的uid')
         // console.log(store.state.currentUser.uid)
       }).catch(error => {
+        ElMessage('登录失败！')
         console.error(error);
       });
     }
