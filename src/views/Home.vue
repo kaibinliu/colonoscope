@@ -1,12 +1,9 @@
 <template>
   <div>
     <form action="/target" class="dropzone" id="my-form"></form>
-    <button type="button" id="submit-all">Upload</button>
-    <button type="button" @click="getProcessResult">展示结果</button>
-<!--    <div>-->
-<!--      <img :src="processResult.maskImage" alt="Image 1">-->
-<!--      <img :src="processResult.bboxesImage" alt="Image 2">-->
-<!--    </div>-->
+    <el-button id="submit-all">Upload</el-button>
+    <el-button @click="getProcessResult">展示结果</el-button>
+    <el-button @click="drawer = true">视频处理</el-button>
   </div>
   <div>
     <el-card :body-style="{ padding: '0px' }" class="card">
@@ -28,6 +25,22 @@
       </div>
     </el-card>
   </div>
+  <el-drawer
+      v-model="drawer"
+      title="肠镜视频处理"
+      direction="rtl"
+  >
+  <div>
+    <el-form ref="uploadForm" :model="form" label-width="80px" @submit.prevent>
+      <el-form-item label="视频文件">
+        <el-upload :before-upload="beforeUpload" :on-success="onUploadSuccess" action="http://localhost:8085/upload/video">
+          <el-button>选择文件</el-button>
+        </el-upload>
+      </el-form-item>
+      <p>注意：视频文件太大，需要较长时间来完成上传与处理，请稍后在视频处理历史页面下载处理结果噢</p>
+    </el-form>
+  </div>
+  </el-drawer>
 </template>
 
 <script>
@@ -35,6 +48,7 @@ import axios from 'axios'
 import Dropzone from "dropzone";
 import 'dropzone/dist/dropzone.css'
 import store from '@/store'
+import { ElMessage } from 'element-plus'
 export default {
   el: 'Home',
   data(){
@@ -45,6 +59,11 @@ export default {
         bboxesImage:'/images/bboxesImage/加载中.jpg'
       },
       currentDate: new Date(),
+      drawer: false,
+      form: {
+        videoFile: null
+      },
+      videoName:'',
     }
   },
   mounted() {
@@ -103,6 +122,27 @@ export default {
         console.error(error);
       });
 
+    },
+
+
+    beforeUpload(file) {
+      console.log('file:')
+      console.log(file)
+    },
+    onUploadSuccess(response) {
+      console.log('文件上传成功，这是文件名：')
+      console.log(response.fileName)
+      this.videoName = response.fileName
+      const formData = new FormData();
+      formData.append("fileName", this.videoName);
+      formData.append("uid", store.state.currentUser.uid)
+      axios.post('http://localhost:8085/upload/processVideo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      ElMessage('文件上传成功，稍后到处理历史页面查看结果')
+      this.drawer = false
     }
   }
 }
@@ -144,7 +184,7 @@ export default {
   display: block;
 }
 .card{
-  width: 25%;
+  width: 24%;
   display: inline-block;
   margin: 0 10px;
 }

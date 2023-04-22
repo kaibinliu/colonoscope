@@ -11,6 +11,7 @@
             @click="viewdetail(image)"
         >
           <el-card>
+            <el-image :src="image.imagepath"></el-image>
             <h4>
               {{image.imagename}}
             </h4>
@@ -21,25 +22,25 @@
     </el-scrollbar>
     <el-dialog
         v-model="dialogVisible"
-        title="详情"
+        title="详情(不支持显示视频，请下载后观看)"
         width="80%"
     >
       <el-scrollbar>
         <el-card :body-style="{ padding: '0px' }" class="card">
           <div style="padding: 14px;">
-            <span>原图像图像</span>
+            <span>原图像图像(视频)<a :href="imageshowitem.imagepath" download>下载</a></span>
           </div>
           <el-image :src="imageshowitem.imagepath"></el-image>
         </el-card>
         <el-card :body-style="{ padding: '0px' }" class="card">
           <div style="padding: 14px;">
-            <span>二进制掩模图像</span>
+            <span>二进制掩模图像(视频)<a :href="imageshowitem.maskpath" download>下载</a></span>
           </div>
           <el-image :src="imageshowitem.maskpath"></el-image>
         </el-card>
         <el-card :body-style="{ padding: '0px' }" class="card">
           <div style="padding: 14px;">
-            <span>矩形边界框图像</span>
+            <span>矩形边界框图像(视频)<a :href="imageshowitem.boundingboxpath" download>下载</a></span>
           </div>
           <el-image :src="imageshowitem.boundingboxpath"></el-image>
         </el-card>

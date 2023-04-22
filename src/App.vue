@@ -4,7 +4,7 @@
   </div>
   <div style="position: fixed;width: 100%;height: 100%">
     <div class="navbar">
-      <router-link to="/" style="font-size: 32px;float: left;text-transform: none;">ColonoScope</router-link>
+      <router-link to="/" style="font-size: 32px;float: left;text-transform: none;">基于深度学习的肠镜图像处理智能辅助系统</router-link>
       <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
         <router-link to="/">首页</router-link>
         <router-link to="/History">图片处理历史</router-link>
